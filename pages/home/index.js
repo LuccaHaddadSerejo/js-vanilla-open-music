@@ -83,7 +83,12 @@ let creatingFilterRange = () =>{
         listBands.innerHTML = ''
         rangeValue.innerText = `Até R$ ${rangeInput.value},00`   
         let filteredList = arrMusicFilter.filter(object => object.price <= rangeInput.value)
-        renderList(filteredList)   
+        let filteredFullList = products.filter(object => object.price <= rangeInput.value)
+        if (arrMusicFilter.length != 0){
+            renderList(filteredList)
+        }else{
+            renderList(filteredFullList)
+        }   
     })
 }
 
