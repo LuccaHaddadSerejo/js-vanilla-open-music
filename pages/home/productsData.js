@@ -1,7 +1,7 @@
-export const products = [
+const products = [
   {
     title: "Magnetite",
-    category: 1,
+    category: 'Rock',
     price: 89.0,
     img: "../../assets/img/1.jpg",
     band: "Scalene",
@@ -10,7 +10,7 @@ export const products = [
   },
   {
     title: "Acabou o Chorare",
-    category: 2,
+    category: 'MPB',
     price: 66.0,
     img: "../../assets/img/2.jpg",
     band: "Novos Baianos",
@@ -19,16 +19,16 @@ export const products = [
   },
   {
     title: "Nirvana Discografia",
-    category: 3,
+    category: 'Rock',
     price: 50.0,
     img: "../../assets/img/3.jpg",
-    band: "Nirvava",
+    band: "Nirvana",
     year: 1990,
     id: 2,
   },
   {
     title: "Both Sides",
-    category: 4,
+    category: 'Pop',
     price: 22.0,
     img: "../../assets/img/4.jpg",
     band: "Phil Collins",
@@ -37,7 +37,7 @@ export const products = [
   },
 ];
 
-export const categories = [
+const categories = [
   "Todos",
   "Pop",
   "MPB",

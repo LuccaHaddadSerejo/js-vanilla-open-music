@@ -1,1 +1,21 @@
-/* Desenvolva sua estilização aqui ... */
+.body{
+}
+
+.section-1{
+    margin-top: 77px;
+    height: 31px;
+}
+
+.section-1_btn{
+    width: 36px;
+    height: 36px;
+    background-color: var(--color-grey-8);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.section-4_ul{
+    padding: 16px, 20px;
+}
