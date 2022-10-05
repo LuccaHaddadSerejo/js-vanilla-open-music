@@ -3,7 +3,7 @@ const bodyJS = document.querySelector('.body')
 let theme = 'dark'
 let darkMode;
 
-let themeChange = () => {
+function themeChange(){
     const btnDarkMode = document.createElement('button')
     let btnImg = document.createElement('img')
 
@@ -19,11 +19,11 @@ let themeChange = () => {
         changeTheme = bodyJS.classList.toggle(theme)
         darkMode = !darkMode
         changeDarkBtnImg()
-        localStorage.setItem(theme, darkMode)     
+        JSON.stringify(localStorage.setItem(theme, darkMode))     
     })
 }
 
-let changeDarkBtnImg = () =>{
+function changeDarkBtnImg(){
  
     let imgMoonSun = document.getElementById('moonSun')
     if(darkMode){
@@ -33,7 +33,7 @@ let changeDarkBtnImg = () =>{
     }
 }
 
-let usertheme = () =>{
+function usertheme(){
     darkMode = JSON.parse(localStorage.getItem(theme));
     if (darkMode) {
         changeDarkBtnImg()
