@@ -5,18 +5,19 @@ const sectionButtons = document.getElementById('section-2')
 const sectionRange = document.getElementById('section-3')
 const rangeValueDiv = document.getElementById('rangeValueDiv')
 
+let arrMusicFilter = []
+
 let renderList = (list) => {
     if(list.length == 0){
             let emptyDiv = document.createElement('div')
             let emptyParagraph = document.createElement('p')
 
             emptyParagraph.classList = 'title-2'
-            emptyParagraph.innerText = 'Não encontramos nada correspondente a sua pesquisa em nosso site:('
+            emptyParagraph.innerText = 'Não encontramos nada correspondente a sua pesquisa em nosso site :('
             emptyDiv.append(emptyParagraph)
-            listBands.append(emptyDiv)
+            return listBands.append(emptyDiv)
     }else{
         list.forEach(element => {
-        
             let listItems = document.createElement('li')
             let itemImg = document.createElement('img')
             let itemDivOne = document.createElement('div')
@@ -56,63 +57,89 @@ let renderList = (list) => {
     }
 }
 
-let creatingRangeInputAndFilter = (list) =>{
+let creatingRangeInput = (productsList) => {
     let rangeInput = document.createElement('input')
     let rangeValue = document.createElement('span')
-    let listOrganized = list.sort((a,b) => a.price - b.price)
+    let listOrganized = productsList.sort((a,b) => a.price - b.price)
 
     rangeInput.setAttribute('id', 'rangeInput')
     rangeInput.setAttribute('type', 'range')
-    rangeInput.setAttribute('type', 'range')
     rangeInput.setAttribute('min', `${rangeInput.min = listOrganized[0].price}`)
     rangeInput.setAttribute('max', `${rangeInput.max = listOrganized[listOrganized.length-1].price}`)
+
     rangeValue.innerText = `Até R$ 0,00`
+    rangeValue.setAttribute('id', 'rangeValue')
     rangeValue.classList = 'text-1'
 
-
-    rangeInput.addEventListener('mousemove', () =>{
-        listBands.innerHTML = ''
-        rangeValue.innerText = `Até R$ ${rangeInput.value},00`  
-        let filteredList = list.filter(object => object.price <= rangeInput.value)
-        renderList(filteredList)   
-    })
-  
     rangeValueDiv.append(rangeValue)
     sectionRange.append(rangeInput)
 }
 
-
-
-
-let creatingButtonsAndFilter = (buttonList, filterList) => {
+let creatingFilterRange = () =>{
+    let rangeInput = document.getElementById('rangeInput')
+    let rangeValue = document.getElementById('rangeValue')
     
-    buttonList.forEach(genre => {
+    rangeInput.addEventListener('mousemove', () =>{
+        listBands.innerHTML = ''
+        rangeValue.innerText = `Até R$ ${rangeInput.value},00`   
+        let filteredList = arrMusicFilter.filter(object => object.price <= rangeInput.value)
+        renderList(filteredList)   
+    })
+}
+
+let creatingButtonsAndFilter = (categories, filterList) => {
+    let rangeValue = document.getElementById('rangeValue')
+
+    categories.forEach(genre => {    
         let buttonfilter = document.createElement('button')
-        let rangeFilter = document.getElementById('rangeInput')
-        
+       
+       
         buttonfilter.classList = 'button .dark'
 
         buttonfilter.innerText = genre
-        
+    
         buttonfilter.addEventListener('click', () =>{
             listBands.innerHTML = ''
-            let filteredCategory = filterList.filter(object => object.category === genre)
-            let filteredPrice = filteredCategory.filter(object => object.price <= rangeFilter.value)
-            let filteredPriceAllProducts = products.filter(object => object.price <= rangeFilter.value)
+
+            arrMusicFilter = []
+
+            let filteredCategory = filterList.filter(object => object.category == genre)
+            // let filteredPrice = filteredCategory.filter(object => object.price < rangeValue.value)    
+            // let filteredPriceAllProducts = filterList.filter(object => object.price < rangeValue.value) 
 
             if(buttonfilter.innerText == 'Todos'){
-                return renderList(filteredPriceAllProducts)
+
+                renderList(filterList)
+
+                filterList.forEach((element) =>{             
+                    arrMusicFilter.push(element)
+                })   
+
             }else{
-                return renderList(filteredPrice)
-            }        
+
+                renderList(filteredCategory) 
+
+                filteredCategory.forEach((element) =>{             
+                    arrMusicFilter.push(element)
+                })   
+            } 
+   
         })
+
         buttonsDiv.append(buttonfilter)
+
     })
+
     return sectionButtons.append(buttonsDiv)
+
 }
 
-
-creatingRangeInputAndFilter(products)
-
+creatingRangeInput(products)
+creatingFilterRange()
 creatingButtonsAndFilter(categories, products)
+
+
+
+
+
 
