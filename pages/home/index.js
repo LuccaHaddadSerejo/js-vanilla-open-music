@@ -6,6 +6,8 @@ const sectionRange = document.getElementById('section-3')
 const rangeValueDiv = document.getElementById('rangeValueDiv')
 
 let arrMusicFilter = []
+let enteringSiteMusicList = [...products]
+
 
 function renderList(list){
     
@@ -75,8 +77,8 @@ function creatingRangeInput(productsList){
     rangeInput.setAttribute('type', 'range')
     rangeInput.setAttribute('min', `${rangeInput.min = listOrganized[0].price}`)
     rangeInput.setAttribute('max', `${rangeInput.max = listOrganized[listOrganized.length-1].price}`)
-
-    rangeValue.innerText = `Até R$ 0,00`
+    rangeInput.value = 100
+    rangeValue.innerText = `Até R$ ${listOrganized[listOrganized.length-1].price},00`
     rangeValue.setAttribute('id', 'rangeValue')
     rangeValue.classList = 'text-1'
 
@@ -92,10 +94,15 @@ function creatingFilterRange(){
         mainList.innerHTML = ''
         rangeValue.innerText = `Até R$ ${rangeInput.value},00`   
         let filteredList = arrMusicFilter.filter(object => object.price <= rangeInput.value)
-        if(arrMusicFilter.length != 0) {
-            renderList(filteredList)
+        let filteredFullMusicList = enteringSiteMusicList.filter(object => object.price <= rangeInput.value)
+        if(enteringSiteMusicList.length != 0){
+            renderList(filteredFullMusicList)
         }else{
-            renderList(arrMusicFilter)
+            if(arrMusicFilter.length != 0) {
+                renderList(filteredList)
+            }else{
+                renderList(enteringSiteMusicList)
+            }
         }
     })
 }
@@ -115,11 +122,12 @@ function creatingButtonsAndFilter(categories, filterList){
         buttonfilter.addEventListener('click', (event) =>{
             event.preventDefault()
             mainList.innerHTML = ''
+            enteringSiteMusicList = []
             arrMusicFilter = []
 
             let filteredCategory = filterList.filter(object => object.category.includes(genre))
             let filterPrice = filteredCategory.filter(object => object.price <= rangeInput.value)    
-            let filterPriceAllProducts = filterList.filter(object => object.price <=rangeInput.value) 
+            let filterPriceAllProducts = filterList.filter(object => object.price <= rangeInput.value) 
 
             if(buttonfilter.innerText == 'Todos'){
                 renderList(filterPriceAllProducts)
@@ -140,6 +148,8 @@ function creatingButtonsAndFilter(categories, filterList){
     return sectionButtons.append(buttonsDiv)
 }
 
+
+renderList(enteringSiteMusicList.sort((a,b) => a.price - b.price))
 creatingRangeInput(products)
 creatingFilterRange()
 creatingButtonsAndFilter(categories, products)

@@ -16,7 +16,7 @@ function themeChange(){
     sectionDarkModeBtn.append(btnDarkMode)
    
     btnDarkMode.addEventListener('click', ()=>{      
-        changeTheme = bodyJS.classList.toggle(theme)
+        bodyJS.classList.toggle(theme)
         darkMode = !darkMode
         changeDarkBtnImg()
         JSON.stringify(localStorage.setItem(theme, darkMode))     
